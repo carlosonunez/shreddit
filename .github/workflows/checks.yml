@@ -41,6 +41,8 @@ jobs:
             target/
           key: ${{ matrix.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
+      - run: rustup update
+
       - run: cargo fmt --check
 
       - name: lint
