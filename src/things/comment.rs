@@ -7,7 +7,7 @@ use async_stream::stream;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 use futures_core::Stream;
-use reqwest::{header::HeaderMap, Client};
+use reqwest::{Client, header::HeaderMap};
 use serde::Deserialize;
 use serde_json::Value;
 use std::collections::HashMap;
@@ -142,7 +142,10 @@ impl Shred for Comment {
             EditResponse::Unexpected(v) => match self.source {
                 Source::Api { can_gild, .. } => {
                     if !can_gild {
-                        error!("Couldn't edit - comment was probably removed by a moderator (`can_gild` == {})", can_gild);
+                        error!(
+                            "Couldn't edit - comment was probably removed by a moderator (`can_gild` == {})",
+                            can_gild
+                        );
                     } else {
                         error!("Couldn't edit: {v:#?}");
                     }
@@ -155,7 +158,10 @@ impl Shred for Comment {
                     match comment.source {
                         Source::Api { can_gild, .. } => {
                             if !can_gild {
-                                error!("Couldn't edit - comment was probably removed by a moderator (`can_gild` == {})", can_gild);
+                                error!(
+                                    "Couldn't edit - comment was probably removed by a moderator (`can_gild` == {})",
+                                    can_gild
+                                );
                             } else {
                                 error!("Couldn't edit: {v:#?}");
                             }
