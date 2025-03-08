@@ -26,6 +26,7 @@ pub struct SavedCommentData {
 #[derive(Debug, Deserialize)]
 pub struct SavedComment {
     id: String,
+    subreddit: String,
     permalink: String,
 }
 
@@ -49,9 +50,9 @@ impl Shred for SavedComment {
     async fn delete(&self, client: &Client, access_token: &str, config: &Config) {
         info!("Deleting...");
 
-        // if self.should_skip(config) {
-        //     return;
-        // }
+        if self.should_skip(config) {
+            return;
+        }
 
         if config.should_prevent_deletion() {
             return;
@@ -81,6 +82,30 @@ impl Shred for SavedComment {
         }
 
         self.prevent_rate_limit().await;
+    }
+}
+
+impl SavedComment {
+    fn should_skip(&self, config: &Config) -> bool {
+        if let Some(skip_comment_ids) = &config.skip_comment_ids {
+            if skip_comment_ids.contains(&self.id) {
+                debug!("Skipping due to `skip_comment_ids` filter");
+                return true;
+            }
+        }
+        if let Some(skip_subreddits) = &config.skip_subreddits {
+            if skip_subreddits.contains(&self.subreddit) {
+                debug!("Skipping due to `skip_subreddits` filter");
+                return true;
+            }
+        }
+        if let Some(only_subreddits) = &config.only_subreddits {
+            if !only_subreddits.contains(&self.subreddit) {
+                debug!("Skipping due to `only_subreddits` filter");
+                return true;
+            }
+        }
+        false
     }
 }
 

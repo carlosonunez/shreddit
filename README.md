@@ -74,7 +74,7 @@ Options:
           [env: SHREDDIT_BEFORE=] [default: "2023-06-25 14:42:43.828192320 UTC"]
       --after <AFTER>
           Don't alter things that were created after this date.
-          [env: SHREDDIT_AFTER=] [
+          [env: SHREDDIT_AFTER=] [default: "2025-03-03 07:24:13.673800 UTC"]
       --max-score <MAX_SCORE>
           [env: SHREDDIT_MAX_SCORE=]
   -r, --replacement-comment <REPLACEMENT_COMMENT>
@@ -85,6 +85,14 @@ Options:
           The path of the directory of the unzipped GDPR export data. If set, `shreddit` will use the GDPR export folder instead of Reddit's APIs for discovering your data [env: SHREDDIT_GDPR_EXPORT_DIR=]
       --edit-only
           If specified, comments will only be edited, not deleted. - Requires gdpr_export [env: SHREDDIT_EDIT_ONLY=]
+      --skip-subreddits <SKIP_SUBREDDITS>
+          If specified, will skip these subreddits [env: SHREDDIT_SKIP_SUBREDDITS=]
+      --skip-comment-ids <SKIP_COMMENT_IDS>
+          If specified, will skip comments and saved comments with listed ids [env: SHREDDIT_SKIP_COMMENT_IDS=]
+      --skip-post-ids <SKIP_POST_IDS>
+          If specified, will skip posts and saved posts with listed ids [env: SHREDDIT_SKIP_POST_IDS=]
+      --only-subreddits <ONLY_SUBREDDITS>
+          If specified, only posts, comments, saved posts, and saved comments in the specified subreddits will be deleted [env: SHREDDIT_ONLY_SUBREDDITS=]
   -h, --help
           Print help
   -V, --version
@@ -124,8 +132,8 @@ I'll be adding these as I go along. PRs are welcome!
 - [ ] Comment sorting
 - [ ] Clear vote - Remove your votes before deleting.
 - [x] Item - configure what kinds of items to delete (submissions, comments, etc.)
-- [ ] Subreddit whitelist - anything in given subreddits will not be deleted.
-- [ ] Whitelist IDs - preserve specific posts by listing their IDs.
+- [x] Subreddit whitelist - anything in given subreddits will not be deleted.
+- [x] Whitelist IDs - preserve specific posts by listing their IDs.
 - [ ] Preserve distinguished - Don't deleted distinguished comments.
 - [ ] Preserve gilded - Don't deleted gilded comments.
 

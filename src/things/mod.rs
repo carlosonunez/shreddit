@@ -16,7 +16,7 @@ pub use saved_comment::*;
 use clap::ValueEnum;
 use reqwest::Client;
 use serde::Deserialize;
-use std::{fmt::Debug, str::FromStr, time::Duration};
+use std::{collections::HashSet, fmt::Debug, ops::Deref, str::FromStr, time::Duration};
 use tokio::time::sleep;
 use tracing::{debug, instrument};
 
@@ -86,5 +86,25 @@ impl FromStr for ThingType {
             "saved-comments" => Ok(Self::SavedComments),
             _ => Err("Invalid type"),
         }
+    }
+}
+
+pub type SubredditSet = ShredditSet;
+pub type CommentIdSet = ShredditSet;
+pub type PostIdSet = ShredditSet;
+
+#[derive(Debug, Clone)]
+pub struct ShredditSet(HashSet<String>);
+
+impl std::convert::From<&str> for ShredditSet {
+    fn from(s: &str) -> Self {
+        Self(s.split(',').map(Into::into).collect())
+    }
+}
+
+impl Deref for ShredditSet {
+    type Target = HashSet<String>;
+    fn deref(&self) -> &Self::Target {
+        &self.0
     }
 }
