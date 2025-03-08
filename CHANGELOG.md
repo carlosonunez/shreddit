@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.1](https://github.com/carlosonunez/shreddit/compare/v0.10.0...v0.10.1) - 2025-03-08
+
+### Fixed
+
+- fixup! Add `--after`
+- lint
+
+### Other
+
+- fmt
+- Add `--after`
+- fix
+- bump edition
+- Update checks.yml
+
 ## [0.10.0](https://github.com/andrewbanchich/shreddit/compare/v0.9.11...v0.10.0) - 2025-03-08
 
 ### Added
